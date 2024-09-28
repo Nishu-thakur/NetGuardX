@@ -1,0 +1,34 @@
+# NetGuardX Requirements
+
+# Required tools for NetGuardX
+iptables>=1.8.0  # Ensure the latest version of iptables
+psad>=2.4.2      # Latest version of psad
+fwsnort>=2.0     # Ensure the latest version of fwsnort
+rsyslog>=8.2102  # Latest stable version of rsyslog
+
+# Note: Make sure to install any dependencies required by these tools.
+"#:-iptables-> sudo apt-get install iptables"
+"#:-rsyslog-> sudo apt-get install rsyslog"
+
+"#:-Download psad from https://www.cipherdyne.org/psad/download/"
+"#:-Download fwsnort from https://www.cipherdyne.org/fwsnort/download/"
+
+"#:- tar xjf fwsnort-1.6.8.tar.bz2"
+"#:- tar xjf psad-2.4.6.tar.bz2"
+
+"#:- mv fwsnort-1.6.8 /usr/local/src"
+"#:- mv psad-2.4.6 /usr/local/src"
+
+"#:- /usr/local/src/psad-2.4.6/install.pl"
+"#:- /usr/local/src/fwsnort-1.6.8/install.pl"
+
+
+"[+] sudo nano /etc/psad/psad.conf"
+"#:-EMAIL_TO \"your_email@example.com"
+"#:-ENABLE_PERSISTENCE             Y"
+"#:-IPT_SYSLOG_FILE                /var/log/syslog"
+"#:-SYSLOG_DAEMON                  rsyslog"
+"#:-ENABLE_AUTO_IDS                Y"
+"#:-AUTO_IDS_DANGER_LEVEL          4"
+"#:-ENABLE_AUTO_IDS_REGEX          Y"
+"#:-IPTABLES_BLOCK_METHOD          Y"
