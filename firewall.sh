@@ -332,13 +332,7 @@ fi
 
 
 
-### Check for backup 
-if [ -f /root/ipt.save ];then
-    cat /root/ipt.save | iptables-restore
-else
-    ./iptables.sh
-    iptables-save > /root/ipt.save
-fi
+
 
 
 
