@@ -41,13 +41,25 @@ tool_info() {
   echo -e "5. Easy Integration with Firewalls${RESET}"
   echo
   echo "Commands:"
-  echo "  fire      Manage firewall settings."
+  echo "  fire      Manually Manage firewall settings."
   echo "  intr      Monitor intrusion alerts."
+  echo "  run       Run NetguardX Firewall"
   echo
   echo "For more information on each command, use:"
   echo "  netguardx fire --help"
   echo "  netguardx intr --help"
   echo
+}
+
+check_psad(){
+    if systemctl is-active --quiet psad; then
+        psad=0
+    else
+        psad=1
+    fi
+    if [ $psad -eq 1 ];then
+        systemctl start psad
+    fi
 }
 
 #monitor the intruder log file 
@@ -60,7 +72,7 @@ monitor_room(){
         --email-alert) $INTRU $1;;
         --Status) $INTRU $1;;
         -A) $INTRU $1;;
-        *) tool_info
+        *) echo -e "${RED}[+] --help${RESET}"
             ;;
     esac
 }
@@ -81,6 +93,7 @@ fire_help() {
     echo "  --flush      Flush all the current firewall rules."
     echo "  --backup     Backup the current firewall rules to a file."
     echo "  --restore    Restore firewall rules from a backup file."
+    echo "  --list       list firewall rules."
     echo
     echo "  Use --reset if you want to restore the default firewall rules, --flush to clear all existing rules."
     echo "  Use --backup to create a backup of your current iptables rules, and --restore to apply a backup."
@@ -89,6 +102,7 @@ fire_help() {
 
 firewall_room(){
     fire=./firewall.sh
+    check_psad
 
     case $1 in 
         --help) tool_info
@@ -98,10 +112,30 @@ firewall_room(){
         --backup) $fire $1;;
         --restore) $fire $1;;
         --edit) $fire $1;;
-        *) fire_help
+        --list) $fire $1;;
+        *) echo -e "${RED}[+] --help${RESET}"
     esac
 }
 
+
+runner(){
+    echo -e "\n${YELLOW}[+]Select Mode:${RESET}"
+    echo -e "${MAGENTA}1. Standard Mode${RESET}"
+    echo -e "${MAGENTA}2. Strict Mode${RESET}"
+    echo -e "${GREEN}Choose a mode (1/2): ${RESET}"
+    read -p "-:" mode
+    check_psad
+    if [ $mode == "1" ];then
+        # run a default iptables and psad for intrusion detection
+        ./iptables.sh
+        ./ip6tables.sh
+    elif [ $mode == "2" ];then
+        ./iptables.sh
+        ./ip6tables.sh
+        python manager.py STR 
+        echo -e "$[#]${GREEN} STRICT MODE ON${NC}"
+    fi  
+}
 
 # Main Function to run banner and tool info
 
@@ -111,12 +145,15 @@ if [ "$UID" == "0" ];then
     if [ $# -gt 0 ];then
         case $1 in 
         --help) tool_info;;
+        run)runner;;
         intr) [ -n "$2" ] && monitor_room $2;; 
         fire) [ -n "$2" ] && firewall_room $2;;
-        *) echo -e "${BLUE}[+]hahaha you don't know --help${NC}"
+        *) echo -e "${BLUE}[+]hahaha you don't know --help${RESET}"
         esac
+    else
+        echo -e "${BLUE}[Usage] netguardx --help${RESET}"
     fi
 else
-    echo -e "${RED}Permission Denied${NC}"
-    echo -e "${RED}You Don't Have Permission${NC}"
+    echo -e "${RED}Permission Denied${RESET}"
+    echo -e "${RED}You Don't Have Permission${RESET}"
 fi

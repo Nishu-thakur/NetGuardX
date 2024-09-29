@@ -44,19 +44,21 @@ show_help() {
 function check_email_alert {
     # Here, you would implement logic to check for email alerts
     # For demonstration, we simulate finding an email
-    MAIL_FILE="/var/mail/toklas"
-    if [ -f /root/mail.txt ];then
-        DATE=$(cat /var/mail/toklas | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{2}(.*) =" | sort -nr | head -n1)
-        STORED_DATE=$(cat /root/mail.txt)
-        if [ "$DATE" == "$STORED_DATE" ];then
-            echo -e "${GREEN} [+] NO ALERT...${NC}"
-        else
-            nano $MAIL_FILE
-            # SAVED DATE 
-            cat /var/mail/toklas | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{2}(.*) =" | sort -nr | head -n1 > /root/mail.txt
-        fi
+    MAIL_FILE=$(python manager.py GET MAIL_F)
+    if [ -f $MAIL_FILE ];then
+
+            DATE=$(cat $MAIL_FILE | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{2}(.*) =" | sort -nr | head -n1)
+            STORED_DATE=$(python manager.py GET MAIL_C)
+            if [ "$DATE" == "$STORED_DATE" ];then
+                echo -e "${GREEN} [+] NO ALERT...${NC}"
+            else
+                vi $MAIL_FILE
+                # SAVED DATE 
+                python manager.py MOD MAIL_C "$DATE"
+            fi
     else
-        cat $MAIL_FILE 
+        echo -e "${RED}[+]MAIL BOX NOT PRESENT...${NC}"
+        echo -e "${RED}[+]UPDATE MAIL BOX PATH IN manager_file.json${NC}"
     fi
 }
 

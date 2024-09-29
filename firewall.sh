@@ -94,12 +94,23 @@ ask_protocol() {
 
 # Function to ask for state matching
 ask_state_match() {
-    echo -e "\n${BLUE}Do you want to match connection state (yes/no)? ${NC}" 
+    echo -e "\n${BLUE}Do you want to match connection state (y/n)? ${NC}" 
     read -p":" state_match
-    if [ "$state_match" == "yes" ];then
-        echo "[+] State (e,g.,NEW,ESTABLISHED,RELATED,INVALID)"
-        read -p "Specify state: " state
-        fi
+    if [ "$state_match" == "y" ];then
+        echo -e "${YELLOW}[+] Choose state${NC}"
+        echo -e "${BLUE}1) ESTABLISHED${NC}"
+        echo -e "${BLUE}2) NEW${NC}"
+        echo -e "${BLUE}3) RELATED${NC}"
+        echo -e "${BLUE}4) INVALID${NC}"
+        read -p "Enter state number: " state_no
+        case $state_no in 
+            1)state="ESTABLISHED";;
+            2)state="NEW";;
+            3)state="RELATED";;
+            4)state="INVALID";;
+            *)state="";;
+        esac
+    fi
 }
 
 # Function to ask for target action (-j)
@@ -144,12 +155,12 @@ ask_interface(){
     echo -e "${BLUE}1) wlp2-${NC}"
     echo -e "${BLUE}2) enp0-${NC}"
     echo -e "${BLUE}3) lo${NC}"
+    echo -e "${BLUE} enter    "
     read -p "Enter your choice (1-3): " interface_choice
     case $interface_choice in
         1) interface="wlp2s0";;
         2) interface="enp0s31f5";;
         3) interface="lo";;
-        *) interface=""
     esac
 }
 
@@ -220,8 +231,12 @@ build_rule() {
 
     # Ask Interfaces
     ask_interface
-    if [ -n $interface ];then
-        rule+=" -i $interface"
+    if [ ! $interface == "" ];then
+        if [ "$chain" == "INPUT" ];then
+            rule+=" -i $interface"
+        else
+            rule+=" -o $interface"
+        fi
     fi
     # SOURCE IP AND DESTINATION ADDRESS
     if [ -n "$source_ip" ];then
@@ -235,7 +250,7 @@ build_rule() {
     if [ "$protocol" == "tcp" ];then
         ask_state_match
 
-        if [ "$state_match" == "yes" ] &&  [ -n "$state" ];then
+        if [ "$state_match" == "y" ] &&  [ ! "$state" == "" ];then
             rule+=" -m state --state $state"
         fi
     fi
@@ -264,7 +279,10 @@ build_rule() {
 }
 
 execute_rule(){
-    $IPTABLES $rule
+    
+    if dpkg -l | grep "iptables" &>/dev/null;then
+        $IPTABLES $rule
+    fi
 }
 
 flush_file(){
@@ -283,21 +301,24 @@ restore_file(){
     cat /root/ipt.save | iptables-restore
     echo -e " ${BLUE}#- SuccesFully Restored...."
 }
+# Function to list current iptables rules
+list_rules() {
+    echo "Listing current iptables rules:"
+    $IPTABLES -L -v -n
+}
 
 
-###### rule builder
+
 if [ $1 ];then
     case $1 in 
         --backup)backup_file;;
         --flush)flush_file;;
         --restore)restore_file;;
-        --edit)build_rule;;
+        --edit)build_rule
+                execute_rule;;
+        --list)list_rules;;
     esac
 fi
-
-###### rule executer
-#
-
 
 
 
