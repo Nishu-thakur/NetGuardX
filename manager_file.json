@@ -1,0 +1,13 @@
+{
+    "MAIL_F": "/var/mail/toklas",
+    "MAIL_S": "toklas@gmail.com",
+    "MAIL_C": "Sat Sep 28 12:35:16 2024 =",
+    "web-php.rules":"/etc/fwsnort/snort_rules/web-php.rules",
+    "shellcode.rules":"/etc/fwsnort/snort_rules/shellcode.rules",
+    "mysql.rules":"/etc/fwsnort/snort_rules/mysql.rules",
+    "backdoor.rules":"/etc/fwsnort/snort_rules/backdoor.rules",
+    "ftp.rules":"/etc/fwsnort/snort_rules/ftp.rules",
+    "bad-traffic.rules":"/etc/fwsnort/snort_rules/bad-traffic.rules",
+    "ddos.rules":"/etc/fwsnort/snort_rules/ddos.rules",
+    "attack-response.rules":"/etc/fwsnort/snort_rules/attack-responses.rules"
+}
