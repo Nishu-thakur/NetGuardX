@@ -1,101 +1,123 @@
---
-
 # NetGuardX
 
-NetGuardX is a powerful and flexible network security tool developed to manage firewall rules, monitor intrusions, and enhance your network's defense. Designed with simplicity and effectiveness in mind, NetGuardX offers intuitive firewall management, intrusion detection, and robust security enforcement.
+**NetGuardX** is a powerful and flexible network security tool developed to manage firewall rules, monitor intrusions, and enhance your network's defense. Designed with simplicity and effectiveness in mind, **NetGuardX** offers intuitive firewall management and intrusion detection functionalities while working seamlessly in the background to enforce robust security measures.
+
+---
 
 ## Features
 
-NetGuardX is divided into three main functionalities:
+**NetGuardX** is divided into two main functionalities:
 
-### 1. Firewall Management (fire)
-- **Interactive Firewall Configuration**: Set up and manage firewall rules by editing chains, targets, and ports.
-- **Reset Option**: Reset the firewall to default settings.
-- **Flush Option**: Clear all existing firewall rules.
-- **Backup and Restore**: Backup current firewall rules and restore them as needed.
-- **List**: View existing firewall rules.
+### 1. Firewall Management (`fire`)
+- **Interactive Firewall Configuration**: Allows users to interactively set up and manage firewall rules by choosing chains, targets, and ports.
+- **Reset Option**: Easily reset the firewall to default settings with a simple command.
+- **Flush Option**: Clear all existing firewall rules in one command.
+- **Backup and Restore**: Backup current firewall rules and restore them later as needed, ensuring a smooth rollback process in case of misconfigurations.
 
-NetGuardX automatically applies additional protection by integrating Snort rules with iptables using fwsnort in the background.
+*Automatic Security Enhancement*: Whenever firewall rules are updated, **NetGuardX** automatically applies additional protection by enhancing iptables with Snort rules in the background using `fwsnort`. This process is fully transparent to the user.
 
-### 2. Intrusion Detection (intr)
-- **Email Alerts**: Receive intrusion notifications via email.
-- **Log Analysis**: Analyze logs for details of potential attacks.
-- **Status Checks**: Monitor system and network traffic anomalies.
-- **Available Options**:
-  - `-A`: Start intrusion detection.
-  - `--email-alert`: Set up email notifications.
-  - `--Status`: Check IDS status.
+### 2. Intrusion Detection (`intr`)
+- **Email Alerts**: Receive email alerts about potential intrusions in your network.
+- **Log File Analysis**: Analyze log files for detailed information on intrusion attempts.
+- **Status Checks**: Display the current status of the intrusion detection system (IDS) using `psad` and monitor network traffic for anomalies.
+- **Detailed Reports**: Get detailed reports on network activity and potential threats.
 
-### 3. Run Mode (run)
-- **Standard Mode**: General network security settings.
-- **Strict Mode**: Enhanced, more aggressive security measures.
+---
 
 ## Installation
 
-1. Clone the repository:
+### 1. Clone the Repository
 
-   ```bash
-   git clone https://github.com/Nishu-thakur/NetGuardX.git
-   ```
+First, clone the repository to your local machine:
 
-2. Run the setup script to install dependencies:
+```bash
+git clone https://github.com/Nishu-thakur/NetGuardX.git
+```
 
-   ```bash
-   cd NetGuardX
-   sudo ./setup.sh
-   ```
+### 2. Run the Setup Script
 
-3. Make the script executable:
+Before executing **NetGuardX**, ensure all dependencies are installed by running the `setup.sh` script:
 
-   ```bash
-   chmod +x netguardx
-   ```
+```bash
+cd NetGuardX
+sudo ./setup.sh
+```
 
-4. Run NetGuardX with the desired command:
+The `setup.sh` script will automatically install required dependencies like `psad`, `iptables`, `fwsnort`, and other necessary tools for proper functioning of **NetGuardX**.
 
-   ```bash
-   sudo ./netguardx [command]
-   ```
+### 3. Make the NetGuardX Script Executable
+
+Once the setup is complete, make the main script executable:
+
+```bash
+chmod +x netguardx
+```
+
+### 4. Run NetGuardX
+
+Now, you can run **NetGuardX** with the desired command:
+
+```bash
+sudo ./netguardx [command]
+```
+
+---
 
 ## Usage
 
-- **Help Menu**: `netguardx --help`
+### Help Menu
+To view available options and usage instructions for **NetGuardX**, use the following command:
+
+```
+netguardx --help
+```
+
+### Firewall Management (`fire`)
+
+To interactively manage your firewall, simply run:
+
+```
+netguardx fire
+```
+
+**Options**:
+- **Reset Firewall Rules**: Reset all firewall rules to default settings:
+    ```
+    netguardx fire --reset
+    ```
   
-### Firewall Management (fire)
+- **Flush Firewall Rules**: Flush all the current firewall rules:
+    ```
+    netguardx fire --flush
+    ```
 
-- Edit firewall rules: `netguardx fire --edit`
-- Reset rules: `netguardx fire --reset`
-- Flush rules: `netguardx fire --flush`
-- Backup rules: `netguardx fire --backup`
-- List rules: `netguardx fire --list`
+- **Backup Firewall Rules**: Backup current iptables rules to a file:
+    ```
+    netguardx fire --backup
+    ```
 
-### Intrusion Detection (intr)
-- Activate IDS: `netguardx intr -A`
-- Set up email alerts: `netguardx intr --email-alert`
-- Check IDS status: `netguardx intr --Status`
+- **Restore Firewall Rules**: Restore previously backed-up firewall rules:
+    ```
+    netguardx fire --restore
+    ```
 
-Here is the updated section for `netguardx run`:
+### Intrusion Detection (`intr`)
+
+To monitor your network for intrusions and view system status, use:
+
+```
+netguardx intr
+```
 
 ---
-
-### Run Mode (run)
-When you use `netguardx run`, it will prompt you to choose the security mode:
-1. **Standard Mode**: General security settings.
-2. **Strict Mode**: Enhanced security measures for maximum protection.
-
-After selecting either option, NetGuardX applies the corresponding firewall and network security rules.
-
-Example:
-```bash
-netguardx run
-# Output:
-# Enter number:
-# 1) Standard
-# 2) Strict
-```
 
 ## Team
 
-NetGuardX is developed by Panchrakshak, a group of passionate cybersecurity enthusiasts dedicated to building open-source security tools.
+**NetGuardX** is developed by **The GuardX Team**, a group of passionate cybersecurity enthusiasts dedicated to building open-source security tools.
+
 
 ---
+
+### Summary of Changes:
+- Added a **setup step** that instructs users to execute `setup.sh` before running **NetGuardX**.
+- This ensures that all required dependencies are installed and configured.

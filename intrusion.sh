@@ -47,7 +47,7 @@ function check_email_alert {
     MAIL_FILE=$(python manager.py GET MAIL_F)
     if [ -f $MAIL_FILE ];then
 			
-            DATE=$(cat /var/mail/toklas | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{0,2}(.*) =" | sort  -k2,2M -k3,3n -k4,4r -k5,5r | tail -n1)
+            DATE=$(cat $MAIL_FILE  | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{0,2}(.*) =" | sort  -k2,2M -k3,3n -k4,4r -k5,5r | tail -n1)
             STORED_DATE=$(python manager.py GET MAIL_C)
             if [ "$DATE" == "$STORED_DATE" ];then
                 echo -e "${GREEN} [+] NO ALERT...${NC}"
