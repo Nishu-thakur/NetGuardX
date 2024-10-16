@@ -4,14 +4,14 @@ RESET='\033[0m'
 
 # Update package list and install necessary dependencies
 sudo apt-get update
-sudo apt-get install -y rsyslog iptables
+sudo apt-get install -y rsyslog iptables postfix
 
 echo "${YELLOW}# INSTALL PSAD...${RESET}"
 # Install PSAD from source
 sudo apt-get install -y git make perl
 git clone https://github.com/mrash/psad.git
 cd psad
-sudo ./install.pl
+sudo ./install.pl --runlevel 2
 
 echo "${YELLOW}# INSTALL FWSnort...${RESET}"
 # Install FWSnort from source
