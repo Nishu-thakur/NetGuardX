@@ -29,7 +29,7 @@ show_help() {
     echo "Options:"
     echo "  --email-alert   View email alerts for intrusion detection."
     echo "  -A              Analyze the log file for intrusion attempts."
-    echo "  --status        Display current status of intrusion detection."
+    echo "  --Status        Display current status of intrusion detection."
     echo "  --help          Show this help menu for the intr command."
     echo
     echo "Description:"
@@ -46,8 +46,8 @@ function check_email_alert {
     # For demonstration, we simulate finding an email
     MAIL_FILE=$(python manager.py GET MAIL_F)
     if [ -f $MAIL_FILE ];then
-
-            DATE=$(cat $MAIL_FILE | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{2}(.*) =" | sort -nr | head -n1)
+			
+            DATE=$(cat /var/mail/toklas | grep -o -E  "[A-Za-Z]{3} [A-Za-Z]{3} [0-9]{0,2}(.*) =" | sort  -k2,2M -k3,3n -k4,4r -k5,5r | tail -n1)
             STORED_DATE=$(python manager.py GET MAIL_C)
             if [ "$DATE" == "$STORED_DATE" ];then
                 echo -e "${GREEN} [+] NO ALERT...${NC}"

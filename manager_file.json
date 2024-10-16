@@ -1,13 +1,17 @@
 {
     "MAIL_F": "/var/mail/toklas",
     "MAIL_S": "toklas@gmail.com",
-    "MAIL_C": "Sat Sep 28 12:35:16 2024 =",
-    "web-php.rules":"/etc/fwsnort/snort_rules/web-php.rules",
-    "shellcode.rules":"/etc/fwsnort/snort_rules/shellcode.rules",
-    "mysql.rules":"/etc/fwsnort/snort_rules/mysql.rules",
-    "backdoor.rules":"/etc/fwsnort/snort_rules/backdoor.rules",
-    "ftp.rules":"/etc/fwsnort/snort_rules/ftp.rules",
-    "bad-traffic.rules":"/etc/fwsnort/snort_rules/bad-traffic.rules",
-    "ddos.rules":"/etc/fwsnort/snort_rules/ddos.rules",
-    "attack-response.rules":"/etc/fwsnort/snort_rules/attack-responses.rules"
+    "MAIL_C": "Wed Oct 16 18:28:42 2024 =",
+    "web-php.rules": "/etc/fwsnort/snort_rules/web-php.rules",
+    "web-attacks.rules": "/etc/fwsnort/snort_rules/web-attacks.rules",
+    "exploit.rules": "/etc/fwsnort/snort_rules/exploit.rules",
+    "ddos.rules": "/etc/fwsnort/snort_rules/ddos.rules",
+    "backdoor.rules": "/etc/fwsnort/snort_rules/backdoor.rules",
+    "shellcode.rules": "/etc/fwsnort/snort_rules/shellcode.rules",
+    "policy.rules": "/etc/fwsnort/snort_rules/policy.rules",
+    "dos.rules": "/etc/fwsnort/snort_rules/dos.rules",
+    "scan.rules": "/etc/fwsnort/snort_rules/scan.rules",
+    "misc.rules": "/etc/fwsnort/snort_rules/misc.rules",
+    "sql.rules": "/etc/fwsnort/snort_rules/sql.rules",
+    "ftp.rules": "/etc/fwsnort/snort_rules/ftp.rules"
 }

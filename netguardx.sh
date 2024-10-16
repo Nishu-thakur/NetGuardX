@@ -133,7 +133,7 @@ runner(){
         ./iptables.sh
         ./ip6tables.sh
         python manager.py STR 
-        echo -e "$[#]${GREEN} STRICT MODE ON${NC}"
+        echo -e "${GREEN} STRICT MODE ON${NC}"
     fi  
 }
 

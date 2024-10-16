@@ -96,6 +96,3 @@ $IPTABLES -A FORWARD -p icmp --icmp-type echo-request -j ACCEPT
 
 ### default log rule
 $IPTABLES -A FORWARD ! -i lo -j LOG --log-prefix "DROP " --log-ip-options --log-tcp-options
-
-
-
