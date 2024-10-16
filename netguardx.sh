@@ -25,7 +25,7 @@ banner() {
     echo "|/    )_)(_______/   )_(   (_______)(_______)|/     \||/   \__/(______/ |/     \|"
                                                                                  
 
-  echo -e "${YELLOW}                The GuardX Team${RESET}"
+  echo -e "${YELLOW}                The PanchRakshak Team${RESET}"
 }
 
 # Tool Description
