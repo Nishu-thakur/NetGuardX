@@ -23,5 +23,6 @@ sudo ./install.pl
 # Enable services
 sudo systemctl enable rsyslog
 sudo systemctl enable psad
+sudo chmod +x firewall.sh intrusion.sh
 
 echo "${YELLOW}NetGuardX dependencies installed and services enabled!${RESET}"
