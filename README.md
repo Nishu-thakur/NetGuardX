@@ -32,29 +32,38 @@ NetGuardX automatically applies additional protection by integrating Snort rules
 - **Standard Mode**: General network security settings.
 - **Strict Mode**: Enhanced, more aggressive security measures.
 
-## Installation
+Here's your refined installation process for NetGuardX, including the steps to make the `setup.sh` script executable:
 
-1. Clone the repository:
+---
 
+### **Installation**
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/Nishu-thakur/NetGuardX.git
    ```
 
-2. Run the setup script to install dependencies:
-
+2. **Navigate to the NetGuardX directory:**
    ```bash
    cd NetGuardX
+   ```
+
+3. **Make the `setup.sh` script executable:**
+   ```bash
+   chmod +x setup.sh
+   ```
+
+4. **Run the `setup.sh` script to install dependencies:**
+   ```bash
    sudo ./setup.sh
    ```
 
-3. Make the script executable:
-
+5. **Make the NetGuardX script executable:**
    ```bash
    chmod +x netguardx
    ```
 
-4. Run NetGuardX with the desired command:
-
+6. **Run NetGuardX with the desired command:**
    ```bash
    sudo ./netguardx [command]
    ```
